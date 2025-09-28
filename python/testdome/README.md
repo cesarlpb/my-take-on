@@ -16,3 +16,8 @@ Enjoy!
   mypy problem.py # static type check
   uv run pytest   # run tests
 ```
+
+## Problems
+
+- Malware Analysis
+- Mega Store
