@@ -1,0 +1,21 @@
+[project]
+name = "testdome"
+version = "0.1.0"
+description = "Public problems from Testdome for Python"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "mypy>=1.18.2",
+    "pytest>=8.4.2",
+]
+
+[tool.mypy]
+# python_version = ">=3.12" # avoid warning if format is not x.y
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+check_untyped_defs = true
+strict_optional = true
