@@ -11,7 +11,7 @@ def test_should_apply_discount_seasonal_correctly():
   assert get_discounted_price(12, 100, DiscountType.SEASONAL) == 88.0
   
 def test_incorrect_weight_should_raise_value_error():
-  with pytest.raises(ValueError, match="weight cannot be negative or zero"):
+  with pytest.raises(ValueError, match="weight must be positive"):
     get_discounted_price(-12, 100, DiscountType.STANDARD)
     
 def test_incorrect_price_should_raise_value_error():
@@ -19,5 +19,5 @@ def test_incorrect_price_should_raise_value_error():
     get_discounted_price(12, -100, DiscountType.STANDARD)
   
 def test_incorrect_discount_type_should_raise_type_error():
-  with pytest.raises(TypeError, match="discount_type should be DiscountType class"):
+  with pytest.raises(TypeError, match="discount_type must be an instance of DiscountType"):
     get_discounted_price(12, 100, "Standard")

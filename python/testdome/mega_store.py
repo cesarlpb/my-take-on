@@ -21,23 +21,17 @@ discount_map: dict[DiscountType, Callable[[float], float]] = {
 def apply_discount(total_price: float, discount: float) -> float:
   return round(total_price * (1 - discount / 100), 2)
 
-def validate_inputs(cart_weight: float, total_price: float, discount_type: DiscountType) -> bool:
-  is_cart_weight_valid = isinstance(cart_weight, (float, int)) and cart_weight > 0
-  if not is_cart_weight_valid:
-    raise ValueError("weight cannot be negative or zero")
-  is_total_price_valid = isinstance(total_price, (float, int)) and total_price >= 0 # 0 -> product is free
-  if not is_total_price_valid:
-    raise ValueError("price cannot be negative")
-  is_discount_type_valid = isinstance(discount_type, DiscountType)
-  if not is_discount_type_valid:
-    raise TypeError("discount_type should be DiscountType class")
-  return is_cart_weight_valid and is_total_price_valid and is_discount_type_valid
+def validate_inputs(cart_weight: float, total_price: float, discount_type: DiscountType) -> None:
+    if cart_weight <= 0:
+        raise ValueError("weight must be positive")
+
+    if total_price < 0:
+        raise ValueError("price cannot be negative")
+
+    if not isinstance(discount_type, DiscountType):
+        raise TypeError("discount_type must be an instance of DiscountType")
 
 def get_discounted_price(cart_weight: float, total_price: float, discount_type: DiscountType) -> float:
-    inputs_are_valid = validate_inputs(cart_weight, total_price, discount_type)
-    if inputs_are_valid:
-      fn = discount_map.get(discount_type, lambda _: STANDARD_DISCOUNT)
-      # print("Applied discount:", fn(cart_weight), "%") # Debug
-      return apply_discount(total_price, fn(cart_weight))
-    else:
-      return float("nan")
+    validate_inputs(cart_weight, total_price, discount_type)
+    fn = discount_map.get(discount_type, lambda _: STANDARD_DISCOUNT)
+    return apply_discount(total_price, fn(cart_weight))
