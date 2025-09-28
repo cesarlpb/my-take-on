@@ -19,5 +19,9 @@ Enjoy!
 
 ## Problems
 
-- Malware Analysis
-- Mega Store
+**Easy:**
+  - [Malware Analysis](./malware_analysis.py)
+  - [Mega Store](./mega_store.py)
+
+**Hard:**
+  - [Boat Movements](./boat_movements.py)
